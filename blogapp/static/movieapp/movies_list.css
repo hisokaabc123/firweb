@@ -1,0 +1,23 @@
+ul.movies_list_movie_type {
+    list-style: none;
+}
+
+div.movies_list_style {
+    margin:-bottom :2em;
+    padding-bottom: 2em;
+    border-bottom: 1px solid #d4d0d0;
+}
+
+div.movies_list_style {
+    margin-top: 0.5em;
+}
+
+div.movies_list_classify_time p{
+    display: inline-block;
+    margin-left: -10px;
+    padding: 2px 10px!important;
+}
+
+div.paginator {
+    text-align: center;
+}

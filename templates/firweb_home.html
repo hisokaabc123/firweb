@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block movie_title %} 网站首页 {% endblock %}
+
+{% block header_link %}
+<link rel="stylesheet" type="text/css" href="{% static 'firweb_home.css' %}">
+{% endblock %}
+
+{% block firweb_home_active %}active{% endblock %}
+
+{% block movie_content %} 
+<h3 class="firweb_home">欢迎浏览我的网站，目前只有电影分享功能，请随便看</h3>
+{% endblock %}

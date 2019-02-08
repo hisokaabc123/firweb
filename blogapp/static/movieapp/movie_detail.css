@@ -1,0 +1,19 @@
+div.container{
+    font-size:150%;
+    margin-left: -30px;
+}
+ul.movie_detail_info_description {
+    list-style-type:none; 
+    margin-bottom: 2em;
+    border-bottom: 1px solid #d4d0d0;
+}
+
+ul.movie_detail_info_description li{
+    display:inline-block;
+    margin-right: 2em;
+}
+
+div.movie_detail_content_description{
+    text-indent: 2em;
+}
+

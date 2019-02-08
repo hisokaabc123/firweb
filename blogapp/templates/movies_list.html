@@ -1,0 +1,107 @@
+﻿{% extends 'base.html' %}
+
+{% load staticfiles %}
+{% block header_link %}
+  <link rel="stylesheet" href="{% static 'movieapp/movies_list.css' %}">
+{% endblock %}
+
+{% block movie_title %} 电影列表 {% endblock %}
+
+{% block blogapp_home_active %}active{% endblock %}
+
+<!-- 分享电影总列表 -->
+{% block movie_content %} 
+<h3>{% block movie_list_listnav %}个人电影收集网站（当前电影分享数为：{{page_of_movies.paginator.count}}）{% endblock %}</h3>
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+            {%  for movie in  movies  %}
+            <div class="movies_list_style">
+              <h3><a href="{%  url 'movie_detail' movie.pk %}">{{ movie.title }}</a></h3>
+              <div class='movies_list_classify_time'>
+                  <p><span class="glyphicon glyphicon-tag" ></span>
+                  <a href="{% url 'movie_type_list' movie.type_name.pk %}">
+                     {{movie.type_name}}
+                  </a>
+                </p>
+                 <p>
+                    <span class="glyphicon glyphicon-time"></span>{{movie.screen_time|date:"Y-m-d"}} 
+                  </p>
+              </div>
+               <p>{{ movie.content|truncatechars:120 }}</p>
+            </div>
+            {% empty %}
+            <div class="movies_list_style">
+                <h3> -- 暂无分享 敬请期待 -- </h3>
+             </div>
+            {%  endfor  %}
+            <div class="paginator">
+               <ul class="pagination">
+                  {#上一页#}
+                  <li>
+                    {% if page_of_movies.has_previous %}
+                          <a href="?page={{page_of_movies.previous_page_number}}" aria-label="Previous">
+                             <span aria-hidden="true">&laquo;</span>
+                          </a>
+                    {% else %}
+                             <span aria-hidden="true">&laquo;</span>
+                    {% endif %}
+                  </li>
+            {# 全部页码 #}
+            {% for page_num in pages_range %}
+              {% if page_num == page_of_movies.number %}
+                  <li class='active'><a href="?page={{page_num}}">{{page_num}}</a></li>
+              {% else %}
+                {%if page_num == '...' %}
+                  <li><span>{{page_num}}</span></li>
+                {% else %}
+                  <li><a href="?page={{page_num}}">{{page_num}}</a></li>
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+                  {#下一页#}
+                  <li>
+                    {% if page_of_movies.has_next %}
+                    <a href="?page={{page_of_movies.next_page_number}}" aria-label="Next">
+                      <span aria-hidden="true">&raquo;</span>
+                    </a>
+                    {% else %}
+                      <span aria-hidden="true">&raquo;</span>
+                    {% endif %}
+                  </li>
+                </ul>
+                <p>
+                  电影共分享{{page_of_movies.paginator.count}}部，
+                  当前第{{page_of_movies.number}}页，
+                  共{{page_of_movies.paginator.num_pages}}页
+                </p>
+            </div>
+        </div>
+        <div class="hidden-xs col-sm-3 col-md-3 col-lg-3 ">
+          <div class="panel panel-default">
+            <div class="panel-heading">电影类型</div>
+            <div class="panel-body">
+              <ul class="movies_list_movie_type">
+              {% for movie_type in movie_types %}
+                  <li>
+                  <a href="{% url 'movie_type_list' movie_type.pk %}">
+                     {{movie_type.type_name}}
+                  </a>
+                  </li>
+              {% empty %}
+                <li><p> -- 暂无分享 敬请期待 -- </p></li>
+              {% endfor %}
+          </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+    <hr>
+    </div>
+{% endblock %}
+
+
+
+

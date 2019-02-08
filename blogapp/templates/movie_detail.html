@@ -1,0 +1,40 @@
+﻿{% extends 'base.html' %}
+{% block movie_title %}影片详细信息{% endblock %}
+{% block blogapp_home_active %}active{% endblock %}
+{% load staticfiles %}
+{% block header_link %}
+  <link rel="stylesheet" href="{% static 'movieapp/movie_detail.css' %}">
+{% endblock %}
+
+<!-- 电影分享详细信息 -->
+{% block movie_content %}
+<div class="container">
+  <div class="row">
+    <div class="col-xs-10 col-xs-offset-2">
+        <h3>电影名称：{{ movie.title }}</h3>
+      <ul class="movie_detail_info_description">
+        <li>电影类型：<a href="{% url 'movie_type_list' movie.type_name.pk %}">{{movie.type_name}}</a></li>
+        <li>上传人：{{movie.author}}</li>
+        <li>创建时间：{{movie.screen_time|date:"Y-m-d"}}</li>
+      </ul>
+        <p>电影简介：</p><div class="movie_detail_content_description">{{ movie.content }}</div>
+      </div>
+  </div>
+  <div class="col-xs-10 col-xs-offset-2">
+      <div>提交评论区域</div>
+      {% if user.is_authenticated %}
+      {% else %}
+      您尚未登录，请先登录才能进行评论~
+      <a href="{% url 'login' %}?from={{request.get_full_path}}">登录</a>
+<!--       <form action="{% url 'login' %}" method="POST">
+        {% csrf_token %}
+        用户名：<input type="text" name="username">
+        密码：<input type="password" name="password">
+             <input type="submit" value="登录">
+      </form> -->
+      {% endif %}
+      <div>评论列表区域</div>
+  </div>
+</div>
+
+{% endblock %}
